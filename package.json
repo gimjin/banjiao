@@ -135,7 +135,8 @@
         "pretest": "npm run lint",
         "test": "node ./test/runTest.js",
         "prepare": "husky install",
-        "build": "vsce package"
+        "build": "vsce package",
+        "publish": "vsce publish"
     },
     "devDependencies": {
         "@commitlint/cli": "^17.6.3",
