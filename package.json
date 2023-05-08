@@ -136,6 +136,9 @@
         "test": "node ./test/runTest.js",
         "prepare": "husky install",
         "build": "vsce package",
+        "release-major": "standard-version --release-as major",
+        "release-minor": "standard-version --release-as minor",
+        "release-patch": "standard-version --release-as patch",
         "publish": "vsce publish"
     },
     "devDependencies": {
@@ -156,6 +159,7 @@
         "husky": "^8.0.3",
         "lint-staged": "^13.2.2",
         "mocha": "^10.2.0",
+        "standard-version": "^9.5.0",
         "typescript": "^5.0.4"
     }
 }
