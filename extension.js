@@ -31,14 +31,14 @@ function replaceChar (event) {
 
         // ^ 全角 …… 会触发两次change事件
         if (char === '…' && char === prevChar) {
-          halfChar = transformHalfChar('…')
+          halfChar = transformHalfChar(char)
           charRange = new vscode.Range(content.range.start.translate(0, -1), content.range.end.translate(0, 1))
           editBuilder.replace(charRange, halfChar)
         }
 
         // _ 全角 —— 会触发两次change事件
         if (char === '—' && char === prevChar) {
-          halfChar = transformHalfChar('—')
+          halfChar = transformHalfChar(char)
           charRange = new vscode.Range(content.range.start.translate(0, -1), content.range.end.translate(0, 1))
           editBuilder.replace(charRange, halfChar)
         }
