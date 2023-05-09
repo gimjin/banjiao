@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+### [1.1.1](https://github.com/gimjin/banjiao/compare/v1.1.0...v1.1.1) (2023-05-09)
 
 ## 1.1.0 (2023-05-09)
 
