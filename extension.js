@@ -1,7 +1,7 @@
 const vscode = require('vscode')
 
 function transformHalfChar (char) {
-  const keymaps = vscode.workspace.getConfiguration().get('keymaps')
+  const keymaps = vscode.workspace.getConfiguration().get('banjiao.keymaps')
 
   for (let index = 0; index < keymaps.length; index++) {
     if (keymaps[index].full === char) {
@@ -60,9 +60,38 @@ function replaceChar (event) {
   })
 }
 
-function activate () {
+function activate ({ subscriptions }) {
+  const getStatusBarItemLabel = (switchConfig) => switchConfig ? '半角' : '全角'
+  const getStatusBarItemTooltip = (switchConfig) => new vscode.MarkdownString(switchConfig ? '点击关半角 `Alt+B`' : '点击开半角 `Alt+B`')
+
+  const switchNamespace = 'banjiao.switch'
+  let config = vscode.workspace.getConfiguration()
+  let switchConfig = config.get(switchNamespace)
+
+  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100)
+  statusBarItem.command = switchNamespace
+  statusBarItem.text = getStatusBarItemLabel(switchConfig)
+  statusBarItem.tooltip = getStatusBarItemTooltip(switchConfig)
+  statusBarItem.show()
+  subscriptions.push(statusBarItem)
+
+  const switchCommand = vscode.commands.registerCommand(switchNamespace, () => {
+    const triggerSwitch = !switchConfig
+    config.update(switchNamespace, triggerSwitch, vscode.ConfigurationTarget.Global)
+  })
+  subscriptions.push(switchCommand)
+
   vscode.workspace.onDidChangeTextDocument(event => {
-    replaceChar(event)
+    if (switchConfig) {
+      replaceChar(event)
+    }
+  })
+
+  vscode.workspace.onDidChangeConfiguration(() => {
+    config = vscode.workspace.getConfiguration()
+    switchConfig = config.get(switchNamespace)
+    statusBarItem.text = getStatusBarItemLabel(switchConfig)
+    statusBarItem.tooltip = getStatusBarItemTooltip(switchConfig)
   })
 
   console.info('activate banjiao.')

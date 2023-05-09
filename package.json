@@ -1,165 +1,178 @@
 {
-    "name": "banjiao",
-    "displayName": "半角",
-    "description": "用中文输入法写代码，全角自动转半角符号。",
-    "version": "1.0.0",
-    "publisher": "gimjin",
-    "icon": "icon.png",
-    "license": "MIT",
-    "engines": {
-        "vscode": "^1.68.0",
-        "node": ">=16",
-        "npm": ">=8"
+  "name": "banjiao",
+  "displayName": "半角",
+  "description": "用中文输入法写代码，全角自动转半角符号。",
+  "version": "1.0.0",
+  "publisher": "gimjin",
+  "icon": "icon.png",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.68.0",
+    "node": ">=16",
+    "npm": ">=8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gimjin/banjiao.git"
+  },
+  "keywords": [
+    "banjiao",
+    "quanjiao",
+    "半角",
+    "全角",
+    "符号",
+    "中文",
+    "英文",
+    "输入法",
+    "转换",
+    "中文转英文"
+  ],
+  "categories": [
+    "Formatters",
+    "Keymaps",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "keybindings": {
+      "command": "banjiao.switch",
+      "key": "alt+b",
+      "when": "editorTextFocus"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/gimjin/banjiao.git"
-    },
-    "keywords": [
-        "banjiao",
-        "quanjiao",
-        "半角",
-        "全角",
-        "符号",
-        "中文",
-        "输入法"
-    ],
-    "categories": [
-        "Formatters",
-        "Keymaps",
-        "Other"
-    ],
-    "activationEvents": [
-        "onStartupFinished"
-    ],
-    "main": "./extension.js",
-    "contributes": {
-        "configuration": {
-            "title": "BanJiao",
-            "properties": {
-                "keymaps": {
-                    "type": "array",
-                    "default": [
-                        {
-                            "full": "。",
-                            "half": "."
-                        },
-                        {
-                            "full": "，",
-                            "half": ","
-                        },
-                        {
-                            "full": "：",
-                            "half": ":"
-                        },
-                        {
-                            "full": "；",
-                            "half": ";"
-                        },
-                        {
-                            "full": "、",
-                            "half": "/"
-                        },
-                        {
-                            "full": "“",
-                            "half": "\""
-                        },
-                        {
-                            "full": "”",
-                            "half": "\""
-                        },
-                        {
-                            "full": "‘",
-                            "half": "'"
-                        },
-                        {
-                            "full": "’",
-                            "half": "'"
-                        },
-                        {
-                            "full": "（",
-                            "half": "("
-                        },
-                        {
-                            "full": "）",
-                            "half": ")"
-                        },
-                        {
-                            "full": "【",
-                            "half": "["
-                        },
-                        {
-                            "full": "】",
-                            "half": "]"
-                        },
-                        {
-                            "full": "《",
-                            "half": "<"
-                        },
-                        {
-                            "full": "》",
-                            "half": ">"
-                        },
-                        {
-                            "full": "·",
-                            "half": "`"
-                        },
-                        {
-                            "full": "…",
-                            "half": "^"
-                        },
-                        {
-                            "full": "￥",
-                            "half": "$"
-                        },
-                        {
-                            "full": "？",
-                            "half": "?"
-                        },
-                        {
-                            "full": "！",
-                            "half": "!"
-                        },
-                        {
-                            "full": "—",
-                            "half": "_"
-                        }
-                    ],
-                    "description": "全角半角映射"
-                }
+    "configuration": {
+      "title": "BanJiao",
+      "properties": {
+        "banjiao.switch": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "开半角 `Alt+B`"
+        },
+        "banjiao.keymaps": {
+          "type": "array",
+          "default": [
+            {
+              "full": "。",
+              "half": "."
+            },
+            {
+              "full": "，",
+              "half": ","
+            },
+            {
+              "full": "：",
+              "half": ":"
+            },
+            {
+              "full": "；",
+              "half": ";"
+            },
+            {
+              "full": "、",
+              "half": "/"
+            },
+            {
+              "full": "“",
+              "half": "\""
+            },
+            {
+              "full": "”",
+              "half": "\""
+            },
+            {
+              "full": "‘",
+              "half": "'"
+            },
+            {
+              "full": "’",
+              "half": "'"
+            },
+            {
+              "full": "（",
+              "half": "("
+            },
+            {
+              "full": "）",
+              "half": ")"
+            },
+            {
+              "full": "【",
+              "half": "["
+            },
+            {
+              "full": "】",
+              "half": "]"
+            },
+            {
+              "full": "《",
+              "half": "<"
+            },
+            {
+              "full": "》",
+              "half": ">"
+            },
+            {
+              "full": "·",
+              "half": "`"
+            },
+            {
+              "full": "…",
+              "half": "^"
+            },
+            {
+              "full": "￥",
+              "half": "$"
+            },
+            {
+              "full": "？",
+              "half": "?"
+            },
+            {
+              "full": "！",
+              "half": "!"
+            },
+            {
+              "full": "—",
+              "half": "_"
             }
+          ],
+          "description": "全角半角映射"
         }
-    },
-    "scripts": {
-        "lint": "eslint .",
-        "pretest": "npm run lint",
-        "test": "node ./test/runTest.js",
-        "prepare": "husky install",
-        "build": "vsce package",
-        "release-major": "standard-version --release-as major",
-        "release-minor": "standard-version --release-as minor",
-        "release-patch": "standard-version --release-as patch",
-        "publish": "vsce publish"
-    },
-    "devDependencies": {
-        "@commitlint/cli": "^17.6.3",
-        "@commitlint/config-conventional": "^17.6.3",
-        "@types/glob": "^8.1.0",
-        "@types/mocha": "^10.0.1",
-        "@types/node": "16.x",
-        "@types/vscode": "^1.68.0",
-        "@vscode/test-electron": "^2.3.0",
-        "@vscode/vsce": "^2.19.0",
-        "eslint": "^8.40.0",
-        "eslint-config-standard": "^17.0.0",
-        "eslint-plugin-import": "^2.27.5",
-        "eslint-plugin-node": "^11.1.0",
-        "eslint-plugin-promise": "^6.1.1",
-        "glob": "^8.1.0",
-        "husky": "^8.0.3",
-        "lint-staged": "^13.2.2",
-        "mocha": "^10.2.0",
-        "standard-version": "^9.5.0",
-        "typescript": "^5.0.4"
+      }
     }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js",
+    "prepare": "husky install",
+    "build": "vsce package",
+    "release-major": "standard-version --release-as major",
+    "release-minor": "standard-version --release-as minor",
+    "release-patch": "standard-version --release-as patch",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.68.0",
+    "@vscode/test-electron": "^2.3.0",
+    "@vscode/vsce": "^2.19.0",
+    "eslint": "^8.40.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "glob": "^8.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "mocha": "^10.2.0",
+    "standard-version": "^9.5.0",
+    "typescript": "^5.0.4"
+  }
 }
