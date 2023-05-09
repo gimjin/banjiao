@@ -1,11 +1,13 @@
 const vscode = require('vscode')
 
-function transformHalfChar (char) {
-  const keymaps = vscode.workspace.getConfiguration().get('banjiao.keymaps')
+const keymapsId = 'banjiao.keymaps'
+const switchId = 'banjiao.switch'
+let config, keymapsConfig, switchConfig
 
-  for (let index = 0; index < keymaps.length; index++) {
-    if (keymaps[index].full === char) {
-      return keymaps[index].half
+function transformHalfChar (char) {
+  for (let index = 0; index < keymapsConfig.length; index++) {
+    if (keymapsConfig[index].full === char) {
+      return keymapsConfig[index].half
     }
   }
 
@@ -60,24 +62,29 @@ function replaceChar (event) {
   })
 }
 
-function activate ({ subscriptions }) {
-  const getStatusBarItemLabel = (switchConfig) => switchConfig ? '半角' : '全角'
-  const getStatusBarItemTooltip = (switchConfig) => new vscode.MarkdownString(switchConfig ? '点击关半角 `Alt+B`' : '点击开半角 `Alt+B`')
+function getStatusBarItemLabel () {
+  return switchConfig ? '半角' : '全角'
+}
 
-  const switchNamespace = 'banjiao.switch'
-  let config = vscode.workspace.getConfiguration()
-  let switchConfig = config.get(switchNamespace)
+function getStatusBarItemTooltip () {
+  return new vscode.MarkdownString(switchConfig ? '点击关半角 `Alt+B`' : '点击开半角 `Alt+B`')
+}
+
+function activate ({ subscriptions }) {
+  config = vscode.workspace.getConfiguration()
+  keymapsConfig = config.get(keymapsId)
+  switchConfig = config.get(switchId)
 
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100)
-  statusBarItem.command = switchNamespace
-  statusBarItem.text = getStatusBarItemLabel(switchConfig)
-  statusBarItem.tooltip = getStatusBarItemTooltip(switchConfig)
+  statusBarItem.command = switchId
+  statusBarItem.text = getStatusBarItemLabel()
+  statusBarItem.tooltip = getStatusBarItemTooltip()
   statusBarItem.show()
   subscriptions.push(statusBarItem)
 
-  const switchCommand = vscode.commands.registerCommand(switchNamespace, () => {
+  const switchCommand = vscode.commands.registerCommand(switchId, () => {
     const triggerSwitch = !switchConfig
-    config.update(switchNamespace, triggerSwitch, vscode.ConfigurationTarget.Global)
+    config.update(switchId, triggerSwitch, vscode.ConfigurationTarget.Global)
   })
   subscriptions.push(switchCommand)
 
@@ -89,9 +96,11 @@ function activate ({ subscriptions }) {
 
   vscode.workspace.onDidChangeConfiguration(() => {
     config = vscode.workspace.getConfiguration()
-    switchConfig = config.get(switchNamespace)
-    statusBarItem.text = getStatusBarItemLabel(switchConfig)
-    statusBarItem.tooltip = getStatusBarItemTooltip(switchConfig)
+    keymapsConfig = config.get(keymapsId)
+    switchConfig = config.get(switchId)
+
+    statusBarItem.text = getStatusBarItemLabel()
+    statusBarItem.tooltip = getStatusBarItemTooltip()
   })
 
   console.info('activate banjiao.')

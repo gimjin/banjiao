@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+
 ## 1.1.0 (2023-05-09)
 
 
@@ -13,13 +15,3 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * 显示例子gif图片 ([d0a7ea0](https://github.com/gimjin/banjiao/commit/d0a7ea01710da6cd97e52fb9794bce0eee7da6ec))
-
-# Change Log
-
-All notable changes to the "banjiao" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
