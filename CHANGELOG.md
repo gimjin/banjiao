@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/gimjin/banjiao/compare/v1.1.1...v1.1.2) (2023-05-10)
+
+
+### Bug Fixes
+
+* 类似compositionstart事件中，单次可输入多个字符时无法转换缺陷 ([889ccd8](https://github.com/gimjin/banjiao/commit/889ccd8a99b1693a928e5382b67defd0f511985b))
+
 ### [1.1.1](https://github.com/gimjin/banjiao/compare/v1.1.0...v1.1.1) (2023-05-09)
 
 ## 1.1.0 (2023-05-09)
