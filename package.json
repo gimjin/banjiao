@@ -16,7 +16,6 @@
     "url": "git+https://github.com/gimjin/banjiao.git"
   },
   "keywords": [
-    "quanjiao",
     "banjiao",
     "全角",
     "半角",
@@ -27,7 +26,16 @@
     "符号",
     "中文符号",
     "输入法",
-    "中文输入法"
+    "中文输入法",
+    "auto-correct",
+    "Auto Correct",
+    "autopunc",
+    "中文标点符号转英文",
+    "标点符号",
+    "中文标点符号",
+    "标点符号转换",
+    "中文标点符号转换为英文",
+    "中文标点符号替换为英文"
   ],
   "categories": [
     "Formatters",
@@ -106,6 +114,14 @@
             {
               "full": "】",
               "half": "]"
+            },
+            {
+              "full": "｛",
+              "half": "{"
+            },
+            {
+              "full": "｝",
+              "half": "}"
             },
             {
               "full": "《",

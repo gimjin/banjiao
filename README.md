@@ -17,6 +17,8 @@
   { "full": "）", "half": ")" },
   { "full": "【", "half": "[" },
   { "full": "】", "half": "]" },
+  { "full": "｛", "half": "{" },
+  { "full": "｝", "half": "}" },
   { "full": "《", "half": "<" },
   { "full": "》", "half": ">" },
   { "full": "·", "half": "`" },
