@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/gimjin/banjiao/compare/v1.1.2...v1.1.3) (2023-05-10)
+
+
+### Bug Fixes
+
+* 增加全角花括号，优化搜索关键字 ([1baee14](https://github.com/gimjin/banjiao/commit/1baee141e4f98bc9062cb938ac68ba8657255366))
+
 ### [1.1.2](https://github.com/gimjin/banjiao/compare/v1.1.1...v1.1.2) (2023-05-10)
 
 
