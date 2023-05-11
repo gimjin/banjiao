@@ -32,7 +32,7 @@ function textEditorEdit (event) {
   vscode.window.activeTextEditor.edit(
     editBuilder => {
       event.contentChanges.forEach(content => {
-        if (content.text.length === 1) {
+        if (content.text.length === 1) { // 单符号处理, 输入或粘贴
           const char = content.text
           let halfChar, prevChar
 
@@ -63,15 +63,19 @@ function textEditorEdit (event) {
               editBuilder.replace(charRange, halfChar)
             }
           }
-        } else if (!/\r|\n/.test(content.text)) {
-          // onDidChangeTextDocument 与 [compositionstart](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/compositionstart_event)
-          // 性质一样, 中文输入法每按下一个子母都会触发, 所以会出现 content.text 是多个字符情况
+        } else if (!/\r|\n/.test(content.text)) { // 单行多符号处理
           const text = content.text
           const newText = text.replaceAll('……', '…')
           const textWithHalfChar = convertToHalfWidthChar(newText)
 
           if (textWithHalfChar !== newText) {
-            charRange = new vscode.Range(content.range.start, content.range.end.translate(0, 1 + text.length - newText.length))
+            if (content.range.start.character === content.range.end.character) { // 处理粘贴
+              charRange = new vscode.Range(content.range.start, content.range.end.translate(0, 1 + text.length))
+            } else { // 处理输入
+              // onDidChangeTextDocument 与 [compositionstart](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/compositionstart_event)
+              // 性质一样, 中文输入法每按下一个子母都会触发, 所以会出现 content.text 是多个字符情况
+              charRange = new vscode.Range(content.range.start, content.range.end.translate(0, 1 + text.length - newText.length))
+            }
             editBuilder.replace(charRange, textWithHalfChar)
           }
         }
