@@ -63,7 +63,7 @@ function textEditorEdit (event) {
               editBuilder.replace(charRange, halfChar)
             }
           }
-        } else {
+        } else if (!/\r|\n/.test(content.text)) {
           // onDidChangeTextDocument 与 [compositionstart](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/compositionstart_event)
           // 性质一样, 中文输入法每按下一个子母都会触发, 所以会出现 content.text 是多个字符情况
           const text = content.text
