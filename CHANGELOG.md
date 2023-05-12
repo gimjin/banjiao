@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.7](https://github.com/gimjin/banjiao/compare/v1.1.6...v1.1.7) (2023-05-12)
+
+
+### Bug Fixes
+
+* 单行多字符粘贴时被批量替换缺陷 ([b508653](https://github.com/gimjin/banjiao/commit/b5086538b289dc59c1074261629317dd167d9d98))
+
 ### [1.1.6](https://github.com/gimjin/banjiao/compare/v1.1.5...v1.1.6) (2023-05-11)
 
 
