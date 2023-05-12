@@ -4,27 +4,17 @@ const keymapsId = 'banjiao.keymaps'
 const switchId = 'banjiao.switch'
 let config, keymapsConfig, switchConfig
 
-function convertToHalfWidthChar (text) {
-  if (text.length === 1) {
-    for (let i = 0; i < keymapsConfig.length; i++) {
-      if (keymapsConfig[i].full === text) {
-        return keymapsConfig[i].half
-      }
+function getHalfWidthChar (char) {
+  for (let i = 0; i < keymapsConfig.length; i++) {
+    if (keymapsConfig[i].full === char) {
+      return keymapsConfig[i].half
     }
-
-    return text
-  } else {
-    let newText = ''
-
-    for (let i = 0; i < text.length; i++) {
-      newText += convertToHalfWidthChar(text[i])
-    }
-
-    return newText
   }
+
+  return char
 }
 
-function textEditorEdit (event) {
+function convertToHalfWidthChar (event) {
   if (vscode.window.activeTextEditor === undefined) return
 
   let charRange
@@ -32,7 +22,8 @@ function textEditorEdit (event) {
   vscode.window.activeTextEditor.edit(
     editBuilder => {
       event.contentChanges.forEach(content => {
-        if (content.text.length === 1) { // 单符号处理, 输入或粘贴
+        // 只处理单符号
+        if (content.text.length === 1) {
           const char = content.text
           let halfChar, prevChar
 
@@ -42,49 +33,37 @@ function textEditorEdit (event) {
 
           // ^ 全角 …… 会触发两次change事件
           if (char === '…' && char === prevChar) {
-            halfChar = convertToHalfWidthChar(char)
+            halfChar = getHalfWidthChar(char)
             charRange = new vscode.Range(content.range.start.translate(0, -1), content.range.end.translate(0, 1))
             editBuilder.replace(charRange, halfChar)
           }
 
           // _ 全角 —— 会触发两次change事件
           if (char === '—' && char === prevChar) {
-            halfChar = convertToHalfWidthChar(char)
+            halfChar = getHalfWidthChar(char)
             charRange = new vscode.Range(content.range.start.translate(0, -1), content.range.end.translate(0, 1))
             editBuilder.replace(charRange, halfChar)
           }
 
           // 其他全角字符
           if (char !== '…' && char !== '—') {
-            halfChar = convertToHalfWidthChar(char)
+            halfChar = getHalfWidthChar(char)
 
             if (halfChar !== char) {
               charRange = new vscode.Range(content.range.start, content.range.end.translate(0, 1))
               editBuilder.replace(charRange, halfChar)
             }
           }
-        } else if (!/\r|\n/.test(content.text)) { // 单行多符号处理
-          const text = content.text
-          const newText = text.replaceAll('……', '…')
-          const textWithHalfChar = convertToHalfWidthChar(newText)
-
-          if (textWithHalfChar !== newText) {
-            if (content.range.start.character === content.range.end.character) { // 处理粘贴
-              charRange = new vscode.Range(content.range.start, content.range.end.translate(0, 1 + text.length))
-            } else { // 处理输入
-              // onDidChangeTextDocument 与 [compositionstart](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/compositionstart_event)
-              // 性质一样, 中文输入法每按下一个子母都会触发, 所以会出现 content.text 是多个字符情况
-              charRange = new vscode.Range(content.range.start, content.range.end.translate(0, 1 + text.length - newText.length))
-            }
-            editBuilder.replace(charRange, textWithHalfChar)
-          }
         }
       })
     },
-    { undoStopBefore: false }
+    {
+      undoStopAfter: false,
+      undoStopBefore: false
+    }
   ).then(fulfilled => {
     if (fulfilled === false) {
-      textEditorEdit(event)
+      convertToHalfWidthChar(event)
     }
   })
 }
@@ -117,7 +96,7 @@ function activate ({ subscriptions }) {
 
   vscode.workspace.onDidChangeTextDocument(event => {
     if (switchConfig) {
-      textEditorEdit(event)
+      convertToHalfWidthChar(event)
     }
   })
 
