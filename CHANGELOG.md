@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.8](https://github.com/gimjin/banjiao/compare/v1.1.7...v1.1.8) (2023-05-19)
+
+
+### Bug Fixes
+
+* 文档未打开时一直显示状态栏按钮缺陷 ([28126d5](https://github.com/gimjin/banjiao/commit/28126d57134f168f8b52288d03d464bf7440ce34))
+
 ### [1.1.7](https://github.com/gimjin/banjiao/compare/v1.1.6...v1.1.7) (2023-05-12)
 
 
