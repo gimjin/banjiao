@@ -81,22 +81,27 @@ function activate ({ subscriptions }) {
   keymapsConfig = config.get(keymapsId)
   switchConfig = config.get(switchId)
 
-  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100)
-  statusBarItem.command = switchId
-  statusBarItem.text = getStatusBarItemLabel()
-  statusBarItem.tooltip = getStatusBarItemTooltip()
-  statusBarItem.show()
-  subscriptions.push(statusBarItem)
-
   const switchCommand = vscode.commands.registerCommand(switchId, () => {
     const triggerSwitch = !switchConfig
     config.update(switchId, triggerSwitch, vscode.ConfigurationTarget.Global)
   })
   subscriptions.push(switchCommand)
 
-  vscode.workspace.onDidChangeTextDocument(event => {
-    if (switchConfig) {
-      convertToHalfWidthChar(event)
+  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100)
+  statusBarItem.command = switchId
+  statusBarItem.text = getStatusBarItemLabel()
+  statusBarItem.tooltip = getStatusBarItemTooltip()
+  subscriptions.push(statusBarItem)
+
+  if (vscode.workspace.textDocuments.length > 0) {
+    statusBarItem.show()
+  }
+
+  vscode.window.onDidChangeActiveTextEditor(textEditor => {
+    if (textEditor) {
+      statusBarItem.show()
+    } else {
+      statusBarItem.hide()
     }
   })
 
@@ -107,6 +112,12 @@ function activate ({ subscriptions }) {
 
     statusBarItem.text = getStatusBarItemLabel()
     statusBarItem.tooltip = getStatusBarItemTooltip()
+  })
+
+  vscode.workspace.onDidChangeTextDocument(event => {
+    if (switchConfig) {
+      convertToHalfWidthChar(event)
+    }
   })
 
   console.info('已激活半角插件')
