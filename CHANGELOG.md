@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.9](https://github.com/gimjin/banjiao/compare/v1.1.8...v1.1.9) (2023-05-22)
+
+
+### Bug Fixes
+
+* 添加直角引号『』「」到半角西文引号的映射 ([b4cb7fc](https://github.com/gimjin/banjiao/commit/b4cb7fc202e9f68693d26eee30f2f10c0e1ec8de))
+
 ### [1.1.8](https://github.com/gimjin/banjiao/compare/v1.1.7...v1.1.8) (2023-05-19)
 
 
