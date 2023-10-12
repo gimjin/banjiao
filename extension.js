@@ -17,15 +17,13 @@ function getHalfWidthChar (char) {
 function convertToHalfWidthChar (event) {
   if (vscode.window.activeTextEditor === undefined) return
 
-  let charRange
-
   vscode.window.activeTextEditor.edit(
     editBuilder => {
       event.contentChanges.forEach(content => {
         if (content.text.length === 1) {
           // 只处理单符号
           const char = content.text
-          let halfChar, prevChar
+          let halfChar, prevChar, charRange
 
           if (content.range.start.character > 0) {
             prevChar = event.document.getText(new vscode.Range(content.range.start.translate(0, -1), content.range.start))
@@ -57,24 +55,27 @@ function convertToHalfWidthChar (event) {
         } else if (content.text.length > 1) {
           // 处理粘贴长文本
           let replacedText = ''
-          content.text.split('').forEach(function(char) {
+          content.text.split('').forEach(char => {
             replacedText += getHalfWidthChar(char)
           })
 
           if (content.text !== replacedText) {
-            let replaceRangeEnd
-            if (content.text.includes('\n')) {
-              const lineCount = (content.text.match(/\n/g) || []).length
-              const lineTexts = content.text.split('\n')
-              const lastLineTextLength = lineTexts[lineTexts.length - 1].length
+            let textRange
+            const currentPosition = content.range.start
 
-              replaceRangeEnd = new vscode.Position(content.range.end.line + lineCount, lastLineTextLength)
+            if (content.text.includes('\n')) {
+              const lines = content.text.split('\n')
+              const endLine = currentPosition.line + lines.length - 1
+              const endLineText = vscode.window.activeTextEditor.document.lineAt(endLine).text
+              const endCharacter = endLineText.indexOf(lines[lines.length - 1]) + 1
+              const endPosition = new vscode.Position(endLine, endCharacter)
+              textRange = new vscode.Range(currentPosition, endPosition)
             } else {
-              replaceRangeEnd = content.range.end.translate(0, content.text.length)
+              const endPosition = content.range.end.translate(0, content.text.length)
+              textRange = new vscode.Range(currentPosition, endPosition)
             }
 
-            charRange = new vscode.Range(content.range.start, replaceRangeEnd)
-            editBuilder.replace(charRange, replacedText)
+            editBuilder.replace(textRange, replacedText)
           }
         }
       })
