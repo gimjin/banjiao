@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/gimjin/banjiao/compare/v1.1.9...v1.2.0) (2023-10-12)
+
+
+### Features
+
+* 粘贴文本时半角自动替换全角 ([9b30794](https://github.com/gimjin/banjiao/commit/9b30794252497804569f38d94af3b000da6b43d0))
+
+
+### Bug Fixes
+
+* vscode git 客户端输入 commit-msg 时触发替换操作缺陷 ([806ac99](https://github.com/gimjin/banjiao/commit/806ac9933f54cfe1c56fd67a8f9fb0b9253fff3b))
+
 ### [1.1.9](https://github.com/gimjin/banjiao/compare/v1.1.8...v1.1.9) (2023-05-22)
 
 
