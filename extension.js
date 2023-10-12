@@ -115,7 +115,9 @@ function activate ({ subscriptions }) {
   })
 
   vscode.workspace.onDidChangeTextDocument(event => {
-    if (switchConfig) {
+    // 只处理代码文件修改
+    // 如 event.document.uri.scheme === 'vscode-scm' 是 vscode git 客户端 commit-msg 输入框会被禁止
+    if (switchConfig && event.document.uri.scheme === 'file') {
       convertToHalfWidthChar(event)
     }
   })
