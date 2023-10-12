@@ -22,8 +22,8 @@ function convertToHalfWidthChar (event) {
   vscode.window.activeTextEditor.edit(
     editBuilder => {
       event.contentChanges.forEach(content => {
-        // 只处理单符号
         if (content.text.length === 1) {
+          // 只处理单符号
           const char = content.text
           let halfChar, prevChar
 
@@ -53,6 +53,28 @@ function convertToHalfWidthChar (event) {
               charRange = new vscode.Range(content.range.start, content.range.end.translate(0, 1))
               editBuilder.replace(charRange, halfChar)
             }
+          }
+        } else if (content.text.length > 1) {
+          // 处理粘贴长文本
+          let replacedText = ''
+          content.text.split('').forEach(function(char) {
+            replacedText += getHalfWidthChar(char)
+          })
+
+          if (content.text !== replacedText) {
+            let replaceRangeEnd
+            if (content.text.includes('\n')) {
+              const lineCount = (content.text.match(/\n/g) || []).length
+              const lineTexts = content.text.split('\n')
+              const lastLineTextLength = lineTexts[lineTexts.length - 1].length
+
+              replaceRangeEnd = new vscode.Position(content.range.end.line + lineCount, lastLineTextLength)
+            } else {
+              replaceRangeEnd = content.range.end.translate(0, content.text.length)
+            }
+
+            charRange = new vscode.Range(content.range.start, replaceRangeEnd)
+            editBuilder.replace(charRange, replacedText)
           }
         }
       })
