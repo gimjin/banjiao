@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.5](https://github.com/gimjin/banjiao/compare/v1.2.4...v1.2.5) (2023-10-25)
+
+
+### Bug Fixes
+
+* 一段应该缩进的代码行中，强行不缩进把【】粘贴在第一个字符位置时替换错乱 ([f1d3596](https://github.com/gimjin/banjiao/commit/f1d3596d36fe39599b0e92b748967838c7b14b56))
+
 ### [1.2.4](https://github.com/gimjin/banjiao/compare/v1.2.3...v1.2.4) (2023-10-25)
 
 
