@@ -141,8 +141,8 @@ function activate ({ subscriptions }) {
   })
 
   vscode.workspace.onDidChangeTextDocument(event => {
-    // ctrl + z 回退操作时跳过
-    if (event.reason === 1) return
+    // [undo 和 redo 时忽略转换](https://code.visualstudio.com/api/references/vscode-api#TextDocumentChangeReason)
+    if (event.reason === 1 || event.reason === 2) return
 
     // 只处理代码文件修改
     // 如 event.document.uri.scheme === 'vscode-scm' 是 vscode git 客户端 commit-msg 输入框会被禁止
