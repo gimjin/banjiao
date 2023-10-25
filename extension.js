@@ -74,8 +74,10 @@ function convertToHalfWidthChar (event) {
               const endPosition = new vscode.Position(endLineNumber, endLineCharacter)
               contentTextRange = new vscode.Range(currentPosition, endPosition)
             } else {
-              const endPosition = currentPosition.translate(0, contentText.length)
-              contentTextRange = new vscode.Range(currentPosition, endPosition)
+              const lineText = vscode.window.activeTextEditor.document.lineAt(currentPosition.line).text
+              const startPosition = new vscode.Position(currentPosition.line, lineText.indexOf(contentText))
+              const endPosition = new vscode.Position(currentPosition.line, lineText.indexOf(contentText) + contentText.length)
+              contentTextRange = new vscode.Range(startPosition, endPosition)
             }
 
             editBuilder.replace(contentTextRange, replacedText)
