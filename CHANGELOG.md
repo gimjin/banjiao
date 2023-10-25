@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.4](https://github.com/gimjin/banjiao/compare/v1.2.3...v1.2.4) (2023-10-25)
+
+
+### Bug Fixes
+
+* undo 和 redo 时忽略转换 ([98cd115](https://github.com/gimjin/banjiao/commit/98cd115e901708e5e5dcba351fd2077de4d3378d))
+
 ### [1.2.3](https://github.com/gimjin/banjiao/compare/v1.2.2...v1.2.3) (2023-10-25)
 
 

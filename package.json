@@ -2,7 +2,7 @@
   "name": "banjiao",
   "displayName": "半角",
   "description": "【中文，符号】自动转 [英文,符号]",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "publisher": "gimjin",
   "icon": "icon.png",
   "license": "MIT",
