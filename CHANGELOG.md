@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/gimjin/banjiao/compare/v1.2.2...v1.2.3) (2023-10-25)
+
+
+### Bug Fixes
+
+* ctrl+z 回退操作无限重复无法回退缺陷 ([18ce9fc](https://github.com/gimjin/banjiao/commit/18ce9fc5faed56aa614dabd94e0e07f00feb83b1))
+
 ### [1.2.2](https://github.com/gimjin/banjiao/compare/v1.2.1...v1.2.2) (2023-10-13)
 
 
