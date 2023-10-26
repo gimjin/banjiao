@@ -65,7 +65,7 @@ function convertToHalfWidthChar (event) {
           )
 
           if (contentText !== replacedText) {
-            if (contentText.includes('\n')) {
+            if (contentText.includes('\n')) { // 多行文本
               const lines = contentText.split('\n')
               const endLineNumber = currentPosition.line + lines.length - 1
               const endLineText = lines[lines.length - 1]
@@ -73,11 +73,14 @@ function convertToHalfWidthChar (event) {
               const endLineCharacter = endLineDocumentText.indexOf(endLineText) + endLineText.length
               const endPosition = new vscode.Position(endLineNumber, endLineCharacter)
               contentTextRange = new vscode.Range(currentPosition, endPosition)
-            } else {
+            } else if (currentPosition.character === 0) { // 单行第一个位置
               const lineText = vscode.window.activeTextEditor.document.lineAt(currentPosition.line).text
               const startPosition = new vscode.Position(currentPosition.line, lineText.indexOf(contentText))
               const endPosition = new vscode.Position(currentPosition.line, lineText.indexOf(contentText) + contentText.length)
               contentTextRange = new vscode.Range(startPosition, endPosition)
+            } else { // 单行其他位置
+              const endPosition = new vscode.Position(currentPosition.line, currentPosition.character + content.text.length)
+              contentTextRange = new vscode.Range(currentPosition, endPosition)
             }
 
             editBuilder.replace(contentTextRange, replacedText)
