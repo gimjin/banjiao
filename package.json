@@ -63,6 +63,11 @@
           "default": true,
           "markdownDescription": "开半角 `Alt+B`"
         },
+        "banjiao.batch": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "粘贴代码批处理"
+        },
         "banjiao.keymaps": {
           "type": "array",
           "default": [

@@ -2,7 +2,8 @@ const vscode = require('vscode')
 
 const keymapsId = 'banjiao.keymaps'
 const switchId = 'banjiao.switch'
-let config, keymapsConfig, switchConfig
+const batchId = 'banjiao.batch'
+let config, keymapsConfig, switchConfig, batchConfig
 
 function getHalfWidthChar (char) {
   for (let i = 0; i < keymapsConfig.length; i++) {
@@ -55,7 +56,7 @@ function convertToHalfWidthChar (event) {
               editBuilder.replace(contentTextRange, halfChar)
             }
           }
-        } else if (contentText.length > 1) {
+        } else if (batchConfig && contentText.length > 1) {
           // 处理粘贴长文本
           const replacedText = contentText.split('').reduce(
             (previousChar, currentChar) => {
@@ -111,6 +112,7 @@ function activate ({ subscriptions }) {
   config = vscode.workspace.getConfiguration()
   keymapsConfig = config.get(keymapsId)
   switchConfig = config.get(switchId)
+  batchConfig = config.get(batchId)
 
   const switchCommand = vscode.commands.registerCommand(switchId, () => {
     const triggerSwitch = !switchConfig
@@ -140,6 +142,7 @@ function activate ({ subscriptions }) {
     config = vscode.workspace.getConfiguration()
     keymapsConfig = config.get(keymapsId)
     switchConfig = config.get(switchId)
+    batchConfig = config.get(batchId)
 
     statusBarItem.text = getStatusBarItemLabel()
     statusBarItem.tooltip = getStatusBarItemTooltip()
