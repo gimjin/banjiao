@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.8](https://github.com/gimjin/banjiao/compare/v1.2.7...v1.2.8) (2024-01-17)
+
+
+### Bug Fixes
+
+* 无法正常显示 gif 例子图片 ([cb5cbb1](https://github.com/gimjin/banjiao/commit/cb5cbb197fd1bc51bb5ca41fefffd34de58039ec))
+
 ### [1.2.7](https://github.com/gimjin/banjiao/compare/v1.2.6...v1.2.7) (2024-01-17)
 
 
