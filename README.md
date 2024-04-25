@@ -29,6 +29,7 @@
   { "full": "·", "half": "`" },
   { "full": "…", "half": "^" },
   { "full": "￥", "half": "$" },
+  { "full": "¥", "half": "$" },
   { "full": "？", "half": "?" },
   { "full": "！", "half": "!" },
   { "full": "—", "half": "_" },
