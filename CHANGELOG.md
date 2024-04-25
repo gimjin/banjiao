@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.10](https://github.com/gimjin/banjiao/compare/v1.2.9...v1.2.10) (2024-04-25)
+
+
+### Bug Fixes
+
+* [#4](https://github.com/gimjin/banjiao/issues/4) 支持 Jupyter Notebooke .ipynb 文件 ([8a9489f](https://github.com/gimjin/banjiao/commit/8a9489fcc4e92de598140f5898271882dfe0f774))
+* bugs in converting RMB symbol of macOS. ([589ebb6](https://github.com/gimjin/banjiao/commit/589ebb6f2991468b5cb40f67ab196063b10f6412))
+
 ### [1.2.9](https://github.com/gimjin/banjiao/compare/v1.2.8...v1.2.9) (2024-01-17)
 
 
