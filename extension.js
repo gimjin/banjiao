@@ -1,5 +1,5 @@
 const vscode = require('vscode')
-const axios = require('axios')
+const axios = require('axios').default
 const md5 = require('md5')
 const { Case } = require('change-case-all')
 
@@ -7,14 +7,12 @@ const switchId = 'banjiao.switch'
 const batchId = 'banjiao.batch'
 const keymapsId = 'banjiao.keymaps'
 const setNameId = 'banjiao.setName'
-const translateId = 'banjiao.translate'
 const translateAppidId = 'banjiao.translateAppid'
 const translateSecretId = 'banjiao.translateSecret'
 
 let switchConfig
 let batchConfig
 let keymapsConfig
-let translateConfig
 let translateAppidConfig
 let translateSecretConfig
 
@@ -23,7 +21,6 @@ function setConfig () {
   switchConfig = config.get(switchId)
   batchConfig = config.get(batchId)
   keymapsConfig = config.get(keymapsId)
-  translateConfig = config.get(translateId)
   translateAppidConfig = config.get(translateAppidId)
   translateSecretConfig = config.get(translateSecretId)
 }
@@ -191,7 +188,7 @@ function activate ({ subscriptions }) {
 
   const hoverProvider = vscode.languages.registerHoverProvider('*', {
     async provideHover (document, position) {
-      if (vscode.window.activeTextEditor === undefined || !(switchConfig && translateConfig)) return
+      if (vscode.window.activeTextEditor === undefined || !(switchConfig && translateAppidConfig && translateSecretConfig)) return
 
       const selection = vscode.window.activeTextEditor.selection
       const selectionText = document.getText(selection)
@@ -226,6 +223,8 @@ function activate ({ subscriptions }) {
           }
 
           return new vscode.Hover(MarkdownString)
+        } else {
+          vscode.window.showErrorMessage('请检查网络, appid, secret 是否正确.')
         }
       }
       return undefined
