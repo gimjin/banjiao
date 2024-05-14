@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/gimjin/banjiao/compare/v1.3.0...v1.3.1) (2024-05-14)
+
+
+### Bug Fixes
+
+* 运行包未安装在 dependencies 导致运行时无法找到包报错 ([304e2ab](https://github.com/gimjin/banjiao/commit/304e2ab279558517acd3b4fa560c88656e00fb21))
+
 ## [1.3.0](https://github.com/gimjin/banjiao/compare/v1.2.10...v1.3.0) (2024-05-14)
 
 
