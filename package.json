@@ -38,7 +38,10 @@
     "中文标点符号",
     "标点符号转换",
     "中文标点符号转换为英文",
-    "中文标点符号替换为英文"
+    "中文标点符号替换为英文",
+    "中文编程",
+    "翻译",
+    "translate"
   ],
   "categories": [
     "Formatters",
@@ -50,11 +53,19 @@
   ],
   "main": "./extension.js",
   "contributes": {
-    "keybindings": {
-      "command": "banjiao.switch",
-      "key": "alt+b",
-      "when": "editorTextFocus"
-    },
+    "commands": [
+      {
+        "command": "banjiao.switch",
+        "title": "半角开关"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "banjiao.switch",
+        "key": "alt+b",
+        "when": "editorTextFocus"
+      }
+    ],
     "configuration": {
       "title": "BanJiao",
       "properties": {
@@ -185,6 +196,21 @@
             }
           ],
           "description": "全角半角映射"
+        },
+        "banjiao.translate": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "百度领域翻译 [申请](https://fanyi-api.baidu.com/product/12)"
+        },
+        "banjiao.translateAppid": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "百度领域翻译 appid [获取](https://fanyi-api.baidu.com/manage/developer)"
+        },
+        "banjiao.translateSecret": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "百度领域翻译 secret [获取](https://fanyi-api.baidu.com/manage/developer)"
         }
       }
     }
@@ -209,6 +235,8 @@
     "@types/vscode": "^1.68.0",
     "@vscode/test-electron": "^2.3.0",
     "@vscode/vsce": "^2.19.0",
+    "axios": "^1.6.8",
+    "change-case-all": "^2.1.0",
     "eslint": "^8.40.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
@@ -217,6 +245,7 @@
     "glob": "^8.1.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
+    "md5": "^2.3.0",
     "mocha": "^10.2.0",
     "standard-version": "^9.5.0",
     "typescript": "^5.0.4"

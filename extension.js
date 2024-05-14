@@ -1,9 +1,32 @@
 const vscode = require('vscode')
+const axios = require('axios')
+const md5 = require('md5')
+const { Case } = require('change-case-all')
 
-const keymapsId = 'banjiao.keymaps'
 const switchId = 'banjiao.switch'
 const batchId = 'banjiao.batch'
-let config, keymapsConfig, switchConfig, batchConfig
+const keymapsId = 'banjiao.keymaps'
+const setNameId = 'banjiao.setName'
+const translateId = 'banjiao.translate'
+const translateAppidId = 'banjiao.translateAppid'
+const translateSecretId = 'banjiao.translateSecret'
+
+let switchConfig
+let batchConfig
+let keymapsConfig
+let translateConfig
+let translateAppidConfig
+let translateSecretConfig
+
+function setConfig () {
+  const config = vscode.workspace.getConfiguration()
+  switchConfig = config.get(switchId)
+  batchConfig = config.get(batchId)
+  keymapsConfig = config.get(keymapsId)
+  translateConfig = config.get(translateId)
+  translateAppidConfig = config.get(translateAppidId)
+  translateSecretConfig = config.get(translateSecretId)
+}
 
 function getHalfWidthChar (char) {
   for (let i = 0; i < keymapsConfig.length; i++) {
@@ -108,17 +131,107 @@ function getStatusBarItemTooltip () {
   return new vscode.MarkdownString(switchConfig ? '点击关半角 `Alt+B`' : '点击开半角 `Alt+B`')
 }
 
+async function fetchTranslateResult (originText) {
+  const originTextIncludeChinese = /[\u4e00-\u9fa5]/.test(originText)
+  const domain = 'it'
+  const salt = Math.random()
+
+  try {
+    const response = await axios({
+      method: 'get',
+      url: 'https://fanyi-api.baidu.com/api/trans/vip/fieldtranslate',
+      params: {
+        q: originText,
+        from: 'auto',
+        to: originTextIncludeChinese ? 'en' : 'zh',
+        appid: translateAppidConfig,
+        salt,
+        domain,
+        sign: md5(translateAppidConfig + originText + salt + domain + translateSecretConfig)
+      }
+    })
+
+    if (response.data.error_code) {
+      return {
+        result: ''
+      }
+    } else {
+      return {
+        lang: response.data.to,
+        result: response.data.trans_result[0].dst
+      }
+    }
+  } catch (error) {
+    return {
+      result: ''
+    }
+  }
+}
+
 function activate ({ subscriptions }) {
-  config = vscode.workspace.getConfiguration()
-  keymapsConfig = config.get(keymapsId)
-  switchConfig = config.get(switchId)
-  batchConfig = config.get(batchId)
+  setConfig()
 
   const switchCommand = vscode.commands.registerCommand(switchId, () => {
+    const config = vscode.workspace.getConfiguration()
     const triggerSwitch = !switchConfig
     config.update(switchId, triggerSwitch, vscode.ConfigurationTarget.Global)
   })
   subscriptions.push(switchCommand)
+
+  const setNameCommand = vscode.commands.registerCommand(setNameId, (name) => {
+    if (vscode.window.activeTextEditor === undefined) return
+
+    const selection = vscode.window.activeTextEditor.selection
+
+    vscode.window.activeTextEditor.edit(editBuilder => {
+      editBuilder.replace(selection, name)
+    })
+  })
+  subscriptions.push(setNameCommand)
+
+  const hoverProvider = vscode.languages.registerHoverProvider('*', {
+    async provideHover (document, position) {
+      if (vscode.window.activeTextEditor === undefined || !(switchConfig && translateConfig)) return
+
+      const selection = vscode.window.activeTextEditor.selection
+      const selectionText = document.getText(selection)
+      const capitalSelectionText = Case.capital(selectionText)
+
+      if (selection.contains(position) && !selection.isEmpty) {
+        const { lang, result: translatedText } = await fetchTranslateResult(capitalSelectionText)
+
+        if (translatedText) {
+          const MarkdownString = new vscode.MarkdownString()
+          MarkdownString.isTrusted = true
+
+          if (lang === 'en') {
+            const capitalText = Case.capital(translatedText)
+            const cleanedText = capitalText.replace(/the\s*|\s+/gi, '') // 使用正则表达式删除所有的空格和 "the"（不区分大小写）
+
+            const camelString = Case.camel(cleanedText)
+            const pascalString = Case.pascal(cleanedText)
+            const snakeString = Case.snake(cleanedText)
+            const constantString = Case.constant(cleanedText)
+            const camelCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([camelString]))}`)
+            const pascalCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([pascalString]))}`)
+            const snakeCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([snakeString]))}`)
+            const constantCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([constantString]))}`)
+
+            MarkdownString.appendMarkdown(`[${camelString}](${camelCommand} "")\n\n`)
+            MarkdownString.appendMarkdown(`[${pascalString}](${pascalCommand} "")\n\n`)
+            MarkdownString.appendMarkdown(`[${snakeString}](${snakeCommand} "")\n\n`)
+            MarkdownString.appendMarkdown(`[${constantString}](${constantCommand} "")\n\n`)
+          } else {
+            MarkdownString.appendMarkdown(translatedText)
+          }
+
+          return new vscode.Hover(MarkdownString)
+        }
+      }
+      return undefined
+    }
+  })
+  subscriptions.push(hoverProvider)
 
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100)
   statusBarItem.command = switchId
@@ -139,10 +252,7 @@ function activate ({ subscriptions }) {
   })
 
   vscode.workspace.onDidChangeConfiguration(() => {
-    config = vscode.workspace.getConfiguration()
-    keymapsConfig = config.get(keymapsId)
-    switchConfig = config.get(switchId)
-    batchConfig = config.get(batchId)
+    setConfig()
 
     statusBarItem.text = getStatusBarItemLabel()
     statusBarItem.tooltip = getStatusBarItemTooltip()

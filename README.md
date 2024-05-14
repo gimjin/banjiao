@@ -1,11 +1,17 @@
-### 【中文，符号】自动转 [英文,符号]
+# 【中文，符号】自动转 [英文,符号]
 
-![例子](https://github.com/gimjin/banjiao/blob/main/example.gif?raw=true)
+- 即时转换英文符号
+- 粘贴代码批量转换
+- 快速转换英文名
+- 快速查看中文名
 
-- 中文注释时再也不会出现 、、
-- 声明数组时也不会出现 【】
-- 粘贴代码批处理
-- 规则如下
+![例子-输入](https://github.com/gimjin/banjiao/blob/main/images/example-input.gif?raw=true)
+
+![例子-命名](https://github.com/gimjin/banjiao/blob/main/images/example-set-name.gif?raw=true)
+
+![例子-查看](https://github.com/gimjin/banjiao/blob/main/images/example-view.gif?raw=true)
+
+### 符号映射
 
 ```JSON
 [
@@ -39,3 +45,7 @@
   { "full": "』", "half": "\"" }
 ]
 ```
+
+### 翻译设置
+
+**快速转换英文名** 和 **快速查看中文名** 功能需要您自行 [申请](https://fanyi-api.baidu.com/product/12) 百度领域翻译, 然后 [获取](https://fanyi-api.baidu.com/manage/developer) 您的 appid 和 secret 到半角设置中输入. 百度领域翻译享每月50万免费字符.
