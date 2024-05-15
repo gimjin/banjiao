@@ -1,51 +1,22 @@
 # 【中文，符号】自动转 [英文,符号]
 
-- 即时转换英文符号
-- 粘贴代码批量转换
-- 快速转换英文名
-- 快速查看中文名
+### 即时转换英文符号
+
+编程时提高中文输入法的鲁棒性，解决误输入 `、、` `【】` `￥` `。` 等符号的困扰。
 
 ![例子-输入](https://github.com/gimjin/banjiao/blob/main/images/example-input.gif?raw=true)
 
+> 默认内置的 [符号映射](https://github.com/gimjin/banjiao/blob/main/package.json#L84) 支持大部分场景，同时支持自定义
+
+
+### 快捷转换中英字符
+
+命名变量和函数时先输入中文后转英文，解决 VSCode 与翻译软件来回切换的困扰。
+
 ![例子-命名](https://github.com/gimjin/banjiao/blob/main/images/example-set-name.gif?raw=true)
+
+选择变量和函数名查看中文字符，解决名称需要加空格或删除下划线才能翻译的困扰。
 
 ![例子-查看](https://github.com/gimjin/banjiao/blob/main/images/example-view.gif?raw=true)
 
-### 符号映射
-
-```JSON
-[
-  { "full": "。", "half": "." },
-  { "full": "，", "half": "," },
-  { "full": "：", "half": ":" },
-  { "full": "；", "half": ";" },
-  { "full": "、", "half": "/" },
-  { "full": "“", "half": "\"" },
-  { "full": "”", "half": "\"" },
-  { "full": "‘", "half": "'" },
-  { "full": "’", "half": "'" },
-  { "full": "（", "half": "(" },
-  { "full": "）", "half": ")" },
-  { "full": "【", "half": "[" },
-  { "full": "】", "half": "]" },
-  { "full": "｛", "half": "{" },
-  { "full": "｝", "half": "}" },
-  { "full": "《", "half": "<" },
-  { "full": "》", "half": ">" },
-  { "full": "·", "half": "`" },
-  { "full": "…", "half": "^" },
-  { "full": "￥", "half": "$" },
-  { "full": "¥", "half": "$" },
-  { "full": "？", "half": "?" },
-  { "full": "！", "half": "!" },
-  { "full": "—", "half": "_" },
-  { "full": "「", "half": "'" },
-  { "full": "」", "half": "'" },
-  { "full": "『", "half": "\"" },
-  { "full": "』", "half": "\"" }
-]
-```
-
-### 翻译设置
-
-**快速转换英文名** 和 **快速查看中文名** 功能需要您自行 [申请](https://fanyi-api.baidu.com/product/12) 百度领域翻译, 然后 [获取](https://fanyi-api.baidu.com/manage/developer) 您的 appid 和 secret 到半角设置中输入. 百度领域翻译享每月50万免费字符.
+> 请 [申请](https://fanyi-api.baidu.com/product/12) 每月50万免费字符的百度领域翻译。打开 **半角设置** 输入您 [获取](https://fanyi-api.baidu.com/manage/developer) 的 appid 和 secret。
