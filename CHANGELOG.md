@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.5](https://github.com/gimjin/banjiao/compare/v1.3.4...v1.3.5) (2024-05-17)
+
+
+### Bug Fixes
+
+* 无法正确处理当前选择文本的转换 ([f2d68ae](https://github.com/gimjin/banjiao/commit/f2d68aead8dd7f27c5bcbf51161079effdfea909))
+
 ### [1.3.4](https://github.com/gimjin/banjiao/compare/v1.3.3...v1.3.4) (2024-05-16)
 
 
