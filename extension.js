@@ -128,7 +128,7 @@ function getStatusBarItemTooltip () {
   return new vscode.MarkdownString(switchConfig ? '点击关半角 `Alt+B`' : '点击开半角 `Alt+B`')
 }
 
-async function fetchTranslateResult (originText, to) {
+async function fetchTranslateResult (originText, from, to) {
   const domain = 'it'
   const salt = Math.random()
 
@@ -138,7 +138,7 @@ async function fetchTranslateResult (originText, to) {
       url: 'https://fanyi-api.baidu.com/api/trans/vip/fieldtranslate',
       params: {
         q: originText,
-        from: 'auto',
+        from,
         to,
         appid: translateAppidConfig,
         salt,
@@ -171,14 +171,14 @@ function activate ({ subscriptions }) {
   })
   subscriptions.push(switchCommand)
 
-  const setNameCommand = vscode.commands.registerCommand(setNameId, (name, range) => {
+  const setNameCommand = vscode.commands.registerCommand(setNameId, (name, currentSelection) => {
     const editor = vscode.window.activeTextEditor
 
     if (editor) {
       let selection = vscode.window.activeTextEditor.selection
 
       if (selection.isEmpty) {
-        selection = new vscode.Selection(range[0], range[1])
+        selection = new vscode.Selection(currentSelection.start, currentSelection.end)
         editor.selection = selection
       }
 
@@ -191,18 +191,39 @@ function activate ({ subscriptions }) {
 
   const hoverProvider = vscode.languages.registerHoverProvider('*', {
     async provideHover (document, position) {
-      if (!(switchConfig && translateAppidConfig && translateSecretConfig)) return
+      if (
+        vscode.window.activeTextEditor === undefined ||
+        !(switchConfig && translateAppidConfig && translateSecretConfig)
+      ) return
 
-      const range = document.getWordRangeAtPosition(position)
-      const rangeText = document.getText(range)
-      if (!rangeText) return
+      const selection = vscode.window.activeTextEditor.selection
+      let currentText, currentSelection
 
-      const containWhitespaceText = /[\s\n]/.test(rangeText)
-      if (containWhitespaceText) return
+      // 优先处理已选择文字
+      if (selection.contains(position) && !selection.isEmpty) {
+        const selectionText = document.getText(selection)
+        currentText = Case.capital(selectionText)
+        currentSelection = selection
+      } else {
+        const range = document.getWordRangeAtPosition(position)
+        const rangeText = document.getText(range)
 
-      const includeChinese = /[\u4e00-\u9fa5]/.test(rangeText)
-      const capitalRangeText = Case.capital(rangeText)
-      const { translatedText, errorMessage } = await fetchTranslateResult(capitalRangeText, includeChinese ? 'en' : 'zh')
+        if (!rangeText) return
+
+        const containWhitespaceText = /[\s\n]/.test(rangeText)
+        if (containWhitespaceText) return
+
+        currentText = Case.capital(rangeText)
+        currentSelection = new vscode.Selection(range.start, range.end)
+      }
+
+      if (!currentText) return
+
+      const chineseCharacterPattern = /[\u4e00-\u9fa5]/
+      const containsChinese = chineseCharacterPattern.test(currentText)
+      const sourceLanguage = containsChinese ? 'zh' : 'en'
+      const targetLanguage = containsChinese ? 'en' : 'zh'
+      const { translatedText, errorMessage } = await fetchTranslateResult(currentText, sourceLanguage, targetLanguage)
 
       if (errorMessage) {
         vscode.window.showErrorMessage(errorMessage)
@@ -212,7 +233,7 @@ function activate ({ subscriptions }) {
       const MarkdownString = new vscode.MarkdownString()
       MarkdownString.isTrusted = true
 
-      if (includeChinese) {
+      if (containsChinese) {
         const capitalText = Case.capital(translatedText)
         const cleanedText = capitalText.replace(/the\s*|\s+/gi, '') // 使用正则表达式删除所有的空格和 "the"（不区分大小写）
 
@@ -220,10 +241,10 @@ function activate ({ subscriptions }) {
         const pascalString = Case.pascal(cleanedText)
         const snakeString = Case.snake(cleanedText)
         const constantString = Case.constant(cleanedText)
-        const camelCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([camelString, range]))}`)
-        const pascalCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([pascalString, range]))}`)
-        const snakeCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([snakeString, range]))}`)
-        const constantCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([constantString, range]))}`)
+        const camelCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([camelString, currentSelection]))}`)
+        const pascalCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([pascalString, currentSelection]))}`)
+        const snakeCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([snakeString, currentSelection]))}`)
+        const constantCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([constantString, currentSelection]))}`)
 
         MarkdownString.appendMarkdown(`[${camelString}](${camelCommand} "点击使用")\n\n`)
         MarkdownString.appendMarkdown(`[${pascalString}](${pascalCommand} "点击使用")\n\n`)
