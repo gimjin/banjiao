@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.7](https://github.com/gimjin/banjiao/compare/v1.3.6...v1.3.7) (2024-06-05)
+
+
+### Bug Fixes
+
+* 在中国无法正常访问github上的gif图片缺陷，用 https://sm.ms/ 图床替代 ([b8c82b6](https://github.com/gimjin/banjiao/commit/b8c82b6ed898ca18e855dbb043ad878ea15a524a))
+
 ### [1.3.6](https://github.com/gimjin/banjiao/compare/v1.3.5...v1.3.6) (2024-06-05)
 
 
