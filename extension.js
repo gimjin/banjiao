@@ -230,29 +230,31 @@ function activate ({ subscriptions }) {
         return
       }
 
+      let capitalText
       const MarkdownString = new vscode.MarkdownString()
       MarkdownString.isTrusted = true
 
       if (containsChinese) {
-        const capitalText = Case.capital(translatedText)
-        const cleanedText = capitalText.replace(/the\s*|\s+/gi, '') // 使用正则表达式删除所有的空格和 "the"（不区分大小写）
-
-        const camelString = Case.camel(cleanedText)
-        const pascalString = Case.pascal(cleanedText)
-        const snakeString = Case.snake(cleanedText)
-        const constantString = Case.constant(cleanedText)
-        const camelCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([camelString, currentSelection]))}`)
-        const pascalCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([pascalString, currentSelection]))}`)
-        const snakeCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([snakeString, currentSelection]))}`)
-        const constantCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([constantString, currentSelection]))}`)
-
-        MarkdownString.appendMarkdown(`[${camelString}](${camelCommand} "点击使用")\n\n`)
-        MarkdownString.appendMarkdown(`[${pascalString}](${pascalCommand} "点击使用")\n\n`)
-        MarkdownString.appendMarkdown(`[${snakeString}](${snakeCommand} "点击使用")\n\n`)
-        MarkdownString.appendMarkdown(`[${constantString}](${constantCommand} "点击使用")\n\n`)
+        capitalText = Case.capital(translatedText)
       } else {
-        MarkdownString.appendMarkdown(translatedText)
+        capitalText = Case.capital(currentText)
+        MarkdownString.appendMarkdown(translatedText + '\n\n')
       }
+
+      const cleanedText = capitalText.replace(/the\s*|\s+/gi, '') // 使用正则表达式删除所有的空格和 "the"（不区分大小写）
+      const camelString = Case.camel(cleanedText)
+      const pascalString = Case.pascal(cleanedText)
+      const snakeString = Case.snake(cleanedText)
+      const constantString = Case.constant(cleanedText)
+      const camelCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([camelString, currentSelection]))}`)
+      const pascalCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([pascalString, currentSelection]))}`)
+      const snakeCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([snakeString, currentSelection]))}`)
+      const constantCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([constantString, currentSelection]))}`)
+
+      MarkdownString.appendMarkdown(`[${camelString}](${camelCommand} "点击")\n\n`)
+      MarkdownString.appendMarkdown(`[${pascalString}](${pascalCommand} "点击")\n\n`)
+      MarkdownString.appendMarkdown(`[${snakeString}](${snakeCommand} "点击")\n\n`)
+      MarkdownString.appendMarkdown(`[${constantString}](${constantCommand} "点击")\n\n`)
 
       return new vscode.Hover(MarkdownString)
     }
