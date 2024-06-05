@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.6](https://github.com/gimjin/banjiao/compare/v1.3.5...v1.3.6) (2024-06-05)
+
+
+### Bug Fixes
+
+* 英文变量名无法互相转换4种变量名类型缺陷 ([1215a78](https://github.com/gimjin/banjiao/commit/1215a78481cfabc951cf018eacc0ac649a105a16))
+* 选择非常多的文字时浪费翻译字符缺陷，当前64个字符内正常翻译且转换变量名 ([46846cc](https://github.com/gimjin/banjiao/commit/46846cc0868b76f714e816e9023d59e250496e01))
+
 ### [1.3.5](https://github.com/gimjin/banjiao/compare/v1.3.4...v1.3.5) (2024-05-17)
 
 
