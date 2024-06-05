@@ -217,7 +217,7 @@ function activate ({ subscriptions }) {
         currentSelection = new vscode.Selection(range.start, range.end)
       }
 
-      if (!currentText) return
+      if (!currentText || currentText.length > 64) return
 
       const chineseCharacterPattern = /[\u4e00-\u9fa5]/
       const containsChinese = chineseCharacterPattern.test(currentText)
