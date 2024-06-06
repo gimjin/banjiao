@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/gimjin/banjiao/compare/v1.3.8...v1.4.0) (2024-06-06)
+
+
+### Features
+
+* 变量名和方法名的中英文对照 ([4984517](https://github.com/gimjin/banjiao/commit/49845173b89066e74239bada0c54ef1d8c6b5d29))
+
 ### [1.3.8](https://github.com/gimjin/banjiao/compare/v1.3.7...v1.3.8) (2024-06-05)
 
 ### [1.3.7](https://github.com/gimjin/banjiao/compare/v1.3.6...v1.3.7) (2024-06-05)
