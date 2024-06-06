@@ -201,47 +201,32 @@ function activate ({ subscriptions }) {
 
       // 优先处理已选择文字
       if (selection.contains(position) && !selection.isEmpty) {
-        const selectionText = document.getText(selection)
-        currentText = Case.capital(selectionText)
+        currentText = document.getText(selection)
         currentSelection = selection
       } else {
         const range = document.getWordRangeAtPosition(position)
-        const rangeText = document.getText(range)
 
-        if (!rangeText) return
+        if (!range) return
 
-        const containWhitespaceText = /[\s\n]/.test(rangeText)
-        if (containWhitespaceText) return
-
-        currentText = Case.capital(rangeText)
+        currentText = document.getText(range)
         currentSelection = new vscode.Selection(range.start, range.end)
       }
 
       if (!currentText || currentText.length > 64) return
 
-      const chineseCharacterPattern = /[\u4e00-\u9fa5]/
-      const containsChinese = chineseCharacterPattern.test(currentText)
+      const containsChinese = /[\u4e00-\u9fa5]/.test(currentText)
+      const sourceText = containsChinese ? currentText : Case.capital(currentText)
       const sourceLanguage = containsChinese ? 'zh' : 'en'
       const targetLanguage = containsChinese ? 'en' : 'zh'
-      const { translatedText, errorMessage } = await fetchTranslateResult(currentText, sourceLanguage, targetLanguage)
+      const { translatedText, errorMessage } = await fetchTranslateResult(sourceText, sourceLanguage, targetLanguage)
 
       if (errorMessage) {
         vscode.window.showErrorMessage(errorMessage)
         return
       }
 
-      let capitalText
-      const MarkdownString = new vscode.MarkdownString()
-      MarkdownString.isTrusted = true
-
-      if (containsChinese) {
-        capitalText = Case.capital(translatedText)
-      } else {
-        capitalText = Case.capital(currentText)
-        MarkdownString.appendMarkdown(translatedText + '\n\n')
-      }
-
-      const cleanedText = capitalText.replace(/the\s*|\s+/gi, '') // 使用正则表达式删除所有的空格和 "the"（不区分大小写）
+      const capitalText = Case.capital(containsChinese ? translatedText : currentText)
+      const cleanedText = capitalText.replace(/The\s*|\s+/g, '') // 使用正则表达式删除所有的 The 和空格
       const camelString = Case.camel(cleanedText)
       const pascalString = Case.pascal(cleanedText)
       const snakeString = Case.snake(cleanedText)
@@ -251,6 +236,9 @@ function activate ({ subscriptions }) {
       const snakeCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([snakeString, currentSelection]))}`)
       const constantCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([constantString, currentSelection]))}`)
 
+      const MarkdownString = new vscode.MarkdownString()
+      MarkdownString.isTrusted = true
+      MarkdownString.appendMarkdown(translatedText + '\n\n')
       MarkdownString.appendMarkdown(`[${camelString}](${camelCommand} "点击")\n\n`)
       MarkdownString.appendMarkdown(`[${pascalString}](${pascalCommand} "点击")\n\n`)
       MarkdownString.appendMarkdown(`[${snakeString}](${snakeCommand} "点击")\n\n`)
