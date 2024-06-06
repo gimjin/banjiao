@@ -229,20 +229,23 @@ function activate ({ subscriptions }) {
       const cleanedText = capitalText.replace(/The\s*|\s+/g, '') // 使用正则表达式删除所有的 The 和空格
       const camelString = Case.camel(cleanedText)
       const pascalString = Case.pascal(cleanedText)
+      const kebabString = Case.kebab(cleanedText)
       const snakeString = Case.snake(cleanedText)
       const constantString = Case.constant(cleanedText)
       const camelCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([camelString, currentSelection]))}`)
       const pascalCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([pascalString, currentSelection]))}`)
+      const kebabCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([kebabString, currentSelection]))}`)
       const snakeCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([snakeString, currentSelection]))}`)
       const constantCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([constantString, currentSelection]))}`)
 
       const MarkdownString = new vscode.MarkdownString()
       MarkdownString.isTrusted = true
       MarkdownString.appendMarkdown(translatedText + '\n\n')
-      MarkdownString.appendMarkdown(`[${camelString}](${camelCommand} "点击")\n\n`)
-      MarkdownString.appendMarkdown(`[${pascalString}](${pascalCommand} "点击")\n\n`)
-      MarkdownString.appendMarkdown(`[${snakeString}](${snakeCommand} "点击")\n\n`)
-      MarkdownString.appendMarkdown(`[${constantString}](${constantCommand} "点击")\n\n`)
+      MarkdownString.appendMarkdown(`[${camelString}](${camelCommand} "camelCase")\n\n`)
+      MarkdownString.appendMarkdown(`[${pascalString}](${pascalCommand} "PascalCase")\n\n`)
+      MarkdownString.appendMarkdown(`[${kebabString}](${kebabCommand} "kebab-case")\n\n`)
+      MarkdownString.appendMarkdown(`[${snakeString}](${snakeCommand} "snake_case")\n\n`)
+      MarkdownString.appendMarkdown(`[${constantString}](${constantCommand} "CONSTANT_CASE")\n\n`)
 
       return new vscode.Hover(MarkdownString)
     }
