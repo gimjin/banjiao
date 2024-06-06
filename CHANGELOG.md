@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/gimjin/banjiao/compare/v1.4.0...v1.4.1) (2024-06-06)
+
+
+### Bug Fixes
+
+* css class 命名时无 kebab-case 风格 ([e5129ac](https://github.com/gimjin/banjiao/commit/e5129ac5e7ab465b701c3a3dee1b80b7c99cbfe1))
+
 ## [1.4.0](https://github.com/gimjin/banjiao/compare/v1.3.8...v1.4.0) (2024-06-06)
 
 
