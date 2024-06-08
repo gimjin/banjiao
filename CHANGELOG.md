@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/gimjin/banjiao/compare/v1.4.2...v1.4.3) (2024-06-08)
+
+
+### Bug Fixes
+
+* mac系统自带输入法和搜狗输入法，符号「」『』对应错误导致无法输入{} ([c292c00](https://github.com/gimjin/banjiao/commit/c292c00dad57c23d117330e65f675729edfb6b92))
+
 ### [1.4.2](https://github.com/gimjin/banjiao/compare/v1.4.1...v1.4.2) (2024-06-08)
 
 
