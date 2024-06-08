@@ -212,10 +212,11 @@ function activate ({ subscriptions }) {
         currentSelection = new vscode.Selection(range.start, range.end)
       }
 
-      if (!currentText || currentText.length > 64) return
-
       const containsChinese = /[\u4e00-\u9fa5]/.test(currentText)
       const sourceText = containsChinese ? currentText : Case.capital(currentText)
+
+      if (!sourceText || sourceText.length > 64) return
+
       const sourceLanguage = containsChinese ? 'zh' : 'en'
       const targetLanguage = containsChinese ? 'en' : 'zh'
       const { translatedText, errorMessage } = await fetchTranslateResult(sourceText, sourceLanguage, targetLanguage)
