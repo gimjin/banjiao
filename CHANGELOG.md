@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/gimjin/banjiao/compare/v1.4.1...v1.4.2) (2024-06-08)
+
+
+### Bug Fixes
+
+* 变量更换风格在 vscode.Hover 占用5行太高导致原功能阅读困难缺陷 ([75b7845](https://github.com/gimjin/banjiao/commit/75b784584e7d18a67d4ff9248016753a3bdabd13))
+* 纯符号(如===)翻译导致百度翻译出错缺陷 ([2d80827](https://github.com/gimjin/banjiao/commit/2d808278f0b2a92a15f6ab9adc68bc7459a319fc))
+
 ### [1.4.1](https://github.com/gimjin/banjiao/compare/v1.4.0...v1.4.1) (2024-06-06)
 
 
