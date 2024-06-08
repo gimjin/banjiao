@@ -241,11 +241,11 @@ function activate ({ subscriptions }) {
       const MarkdownString = new vscode.MarkdownString()
       MarkdownString.isTrusted = true
       MarkdownString.appendMarkdown(translatedText + '\n\n')
-      MarkdownString.appendMarkdown(`[${camelString}](${camelCommand} "camelCase")\n\n`)
-      MarkdownString.appendMarkdown(`[${pascalString}](${pascalCommand} "PascalCase")\n\n`)
-      MarkdownString.appendMarkdown(`[${kebabString}](${kebabCommand} "kebab-case")\n\n`)
-      MarkdownString.appendMarkdown(`[${snakeString}](${snakeCommand} "snake_case")\n\n`)
-      MarkdownString.appendMarkdown(`[${constantString}](${constantCommand} "CONSTANT_CASE")\n\n`)
+      MarkdownString.appendMarkdown(`[camelCase](${camelCommand} "camelCase") | `)
+      MarkdownString.appendMarkdown(`[PascalCase](${pascalCommand} "PascalCase") | `)
+      MarkdownString.appendMarkdown(`[kebab-case](${kebabCommand} "kebab-case") | `)
+      MarkdownString.appendMarkdown(`[snake_case](${snakeCommand} "snake_case") | `)
+      MarkdownString.appendMarkdown(`[CONSTANT_CASE](${constantCommand} "CONSTANT_CASE")`)
 
       return new vscode.Hover(MarkdownString)
     }
