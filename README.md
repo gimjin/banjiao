@@ -8,6 +8,6 @@
 
 ## 变量名和方法名的中英文对照与转换
 
-![example-translate.gif](https://s2.loli.net/2024/06/06/uy1JEl9CPR6H7aY.gif)
+![example-translate.gif](https://s2.loli.net/2024/06/08/W4wncBq3FpRtLXg.gif)
 
 > 解决您在英文命名和代码阅读方面的困扰。[申请](https://fanyi-api.baidu.com/product/12)每月50万免费字符的百度领域翻译，打开**半角设置**并输入 appid 和 secret 激活此功能。
