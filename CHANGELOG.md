@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.4](https://github.com/gimjin/banjiao/compare/v1.4.3...v1.4.4) (2024-06-11)
+
+
+### Bug Fixes
+
+* hover 弹框中无法预知被替换的变量名缺陷 ([048f3fc](https://github.com/gimjin/banjiao/commit/048f3fc311ea69a6240e008a625ddbbbd8ad0e5b))
+
 ### [1.4.3](https://github.com/gimjin/banjiao/compare/v1.4.2...v1.4.3) (2024-06-08)
 
 
