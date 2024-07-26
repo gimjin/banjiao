@@ -171,21 +171,26 @@ function activate ({ subscriptions }) {
   })
   subscriptions.push(switchCommand)
 
-  const setNameCommand = vscode.commands.registerCommand(setNameId, (name, currentSelection) => {
+  const setNameCommand = vscode.commands.registerCommand(setNameId, (variableNames, currentSelection) => {
     const editor = vscode.window.activeTextEditor
+    if (!editor) return
 
-    if (editor) {
-      let selection = vscode.window.activeTextEditor.selection
+    const selection = new vscode.Selection(currentSelection.start, currentSelection.end)
+    editor.selection = selection
 
-      if (selection.isEmpty) {
-        selection = new vscode.Selection(currentSelection.start, currentSelection.end)
-        editor.selection = selection
+    vscode.window.showQuickPick(
+      variableNames,
+      {
+        placeHolder: '请选择半角风格'
       }
-
-      editor.edit(editBuilder => {
-        editBuilder.replace(selection, name)
+    )
+      .then(selected => {
+        if (selected) {
+          editor.edit(editBuilder => {
+            editBuilder.replace(selection, selected)
+          })
+        }
       })
-    }
   })
   subscriptions.push(setNameCommand)
 
@@ -197,19 +202,26 @@ function activate ({ subscriptions }) {
       ) return
 
       const selection = vscode.window.activeTextEditor.selection
+      const hoverRange = document.getWordRangeAtPosition(position)
       let currentText, currentSelection
 
-      // 优先处理已选择文字
-      if (selection.contains(position) && !selection.isEmpty) {
+      if (!hoverRange || hoverRange.isEmpty) return
+
+      if (selection.isEmpty) {
+        // 鼠标悬停且无选区
+        currentText = document.getText(hoverRange)
+        currentSelection = new vscode.Selection(hoverRange.start, hoverRange.end)
+      } else if (
+        selection.start.line === selection.end.line &&
+        position.line === selection.start.line &&
+        position.character >= selection.start.character &&
+        position.character <= selection.end.character
+      ) {
+        // 鼠标悬停在当前选区范围内
         currentText = document.getText(selection)
         currentSelection = selection
       } else {
-        const range = document.getWordRangeAtPosition(position)
-
-        if (!range) return
-
-        currentText = document.getText(range)
-        currentSelection = new vscode.Selection(range.start, range.end)
+        return
       }
 
       const containsChinese = /[\u4e00-\u9fa5]/.test(currentText)
@@ -228,25 +240,19 @@ function activate ({ subscriptions }) {
 
       const capitalText = Case.capital(containsChinese ? translatedText : currentText)
       const cleanedText = capitalText.replace(/The\s*|\s+/g, '') // 使用正则表达式删除所有的 The 和空格
-      const camelString = Case.camel(cleanedText)
-      const pascalString = Case.pascal(cleanedText)
-      const kebabString = Case.kebab(cleanedText)
-      const snakeString = Case.snake(cleanedText)
-      const constantString = Case.constant(cleanedText)
-      const camelCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([camelString, currentSelection]))}`)
-      const pascalCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([pascalString, currentSelection]))}`)
-      const kebabCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([kebabString, currentSelection]))}`)
-      const snakeCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([snakeString, currentSelection]))}`)
-      const constantCommand = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([constantString, currentSelection]))}`)
+      const variableNames = [
+        Case.camel(cleanedText),
+        Case.pascal(cleanedText),
+        Case.kebab(cleanedText),
+        Case.snake(cleanedText),
+        Case.constant(cleanedText)
+      ]
+      const command = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([variableNames, currentSelection]))}`)
 
       const MarkdownString = new vscode.MarkdownString()
       MarkdownString.isTrusted = true
-      MarkdownString.appendMarkdown(translatedText + '\n\n')
-      MarkdownString.appendMarkdown(`[camelCase](${camelCommand} "${camelString}") | `)
-      MarkdownString.appendMarkdown(`[PascalCase](${pascalCommand} "${pascalString}") | `)
-      MarkdownString.appendMarkdown(`[kebab-case](${kebabCommand} "${kebabString}") | `)
-      MarkdownString.appendMarkdown(`[snake_case](${snakeCommand} "${snakeString}") | `)
-      MarkdownString.appendMarkdown(`[CONSTANT_CASE](${constantCommand} "${constantString}")`)
+      MarkdownString.appendMarkdown(translatedText)
+      MarkdownString.appendMarkdown(` [半角](${command} "点击选择半角风格")`)
 
       return new vscode.Hover(MarkdownString)
     }
