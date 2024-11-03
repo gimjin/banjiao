@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.6](https://github.com/gimjin/banjiao/compare/v1.4.5...v1.4.6) (2024-11-03)
+
+
+### Bug Fixes
+
+* 或符号 || 在 mac ｜｜显示的缺陷 ([4272a76](https://github.com/gimjin/banjiao/commit/4272a76c0a9f1d5f22f3a80d3e57847ae939eea7))
+
 ### [1.4.5](https://github.com/gimjin/banjiao/compare/v1.4.4...v1.4.5) (2024-07-26)
 
 
