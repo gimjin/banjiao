@@ -187,7 +187,7 @@ function activate ({ subscriptions }) {
       .then(selected => {
         if (selected) {
           editor.edit(editBuilder => {
-            editBuilder.replace(selection, selected)
+            editBuilder.replace(selection, selected.description)
           })
         }
       })
@@ -241,11 +241,26 @@ function activate ({ subscriptions }) {
       const capitalText = Case.capital(containsChinese ? translatedText : currentText)
       const cleanedText = capitalText.replace(/The\s*|\s+/g, '') // 使用正则表达式删除所有的 The 和空格
       const variableNames = [
-        Case.camel(cleanedText),
-        Case.pascal(cleanedText),
-        Case.kebab(cleanedText),
-        Case.snake(cleanedText),
-        Case.constant(cleanedText)
+        {
+          label: '1.',
+          description: Case.camel(cleanedText)
+        },
+        {
+          label: '2.',
+          description: Case.pascal(cleanedText)
+        },
+        {
+          label: '3.',
+          description: Case.kebab(cleanedText)
+        },
+        {
+          label: '4.',
+          description: Case.snake(cleanedText)
+        },
+        {
+          label: '5.',
+          description: Case.constant(cleanedText)
+        }
       ]
       const command = vscode.Uri.parse(`command:banjiao.setName?${encodeURIComponent(JSON.stringify([variableNames, currentSelection]))}`)
 
