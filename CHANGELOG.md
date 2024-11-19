@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.7](https://github.com/gimjin/banjiao/compare/v1.4.6...v1.4.7) (2024-11-19)
+
+
+### Bug Fixes
+
+* 选择半角风格时无快捷键，导致无法快速通过键盘选择的缺陷 ([fc53ce1](https://github.com/gimjin/banjiao/commit/fc53ce1e5ede1eccbed7fd4ad8a86748970f4624))
+
 ### [1.4.6](https://github.com/gimjin/banjiao/compare/v1.4.5...v1.4.6) (2024-11-03)
 
 
