@@ -7,9 +7,9 @@
   "icon": "icon.png",
   "license": "MIT",
   "engines": {
-    "vscode": "^1.68.0",
-    "node": ">=16",
-    "npm": ">=8"
+    "vscode": "^1.98.0",
+    "node": "^20.19.4",
+    "pnpm": "^10.14.0"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,33 @@
     "翻译",
     "translate"
   ],
+  "main": "./out/extension.js",
+  "scripts": {
+    "build": "tsc -p ./ && vsce package --no-dependencies",
+    "publish": "vsce publish --no-dependencies",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "axios": "^1.7.3",
+    "change-case-all": "^2.1.0",
+    "md5": "^2.3.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@eslint/js": "^9.32.0",
+    "@types/md5": "^2.3.5",
+    "@types/node": "^22.5.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.0.0",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.8",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0"
+  },
   "categories": [
     "Formatters",
     "Keymaps",
@@ -51,7 +78,6 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./extension.js",
   "contributes": {
     "commands": [
       {
@@ -74,10 +100,10 @@
           "default": true,
           "markdownDescription": "开半角 `Alt+B`"
         },
-        "banjiao.batch": {
+        "banjiao.enableBatch": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "粘贴代码批处理"
+          "description": "启用粘贴代码批处理"
         },
         "banjiao.keymaps": {
           "type": "array",
@@ -204,51 +230,30 @@
         "banjiao.translateAppid": {
           "type": "string",
           "default": "",
-          "markdownDescription": "百度开发者 appid"
+          "description": "百度开发者 appid"
         },
         "banjiao.translateSecret": {
           "type": "string",
           "default": "",
-          "markdownDescription": "百度开发者 secret"
+          "description": "百度开发者 secret"
+        },
+        "banjiao.excludeExtensions": {
+          "type": "array",
+          "default": [
+            "md",
+            "txt"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "这些文件类型不进行符号转换"
+        },
+        "banjiao.enableInComments": {
+          "type": "boolean",
+          "default": false,
+          "description": "单行注释中启用符号转换"
         }
       }
     }
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "node ./test/runTest.js",
-    "prepare": "husky install",
-    "build": "vsce package",
-    "release-major": "standard-version --release-as major",
-    "release-minor": "standard-version --release-as minor",
-    "release-patch": "standard-version --release-as patch",
-    "publish": "vsce publish"
-  },
-  "dependencies": {
-    "axios": "^1.6.8",
-    "change-case-all": "^2.1.0",
-    "md5": "^2.3.0"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^17.6.3",
-    "@commitlint/config-conventional": "^17.6.3",
-    "@types/glob": "^8.1.0",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "16.x",
-    "@types/vscode": "^1.68.0",
-    "@vscode/test-electron": "^2.3.0",
-    "@vscode/vsce": "^2.19.0",
-    "eslint": "^8.40.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1",
-    "glob": "^8.1.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
-    "mocha": "^10.2.0",
-    "standard-version": "^9.5.0",
-    "typescript": "^5.0.4"
   }
 }
