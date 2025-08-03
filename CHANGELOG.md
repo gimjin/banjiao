@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.3](https://github.com/gimjin/banjiao/compare/banjiao-v1.5.2...banjiao-v1.5.3) (2025-08-03)
+
+
+### Bug Fixes
+
+* 忽略了 node_modules 导致无法找到 axios ([fe06675](https://github.com/gimjin/banjiao/commit/fe066753db9a42718eb9c2301d4a335745137569))
+
 ## [1.5.2](https://github.com/gimjin/banjiao/compare/banjiao-v1.5.1...banjiao-v1.5.2) (2025-08-03)
 
 
