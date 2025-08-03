@@ -9,7 +9,7 @@
   "engines": {
     "vscode": "^1.98.0",
     "node": "^20.19.4",
-    "pnpm": "^10.14.0"
+    "npm": "^10.8.2"
   },
   "repository": {
     "type": "git",
@@ -45,8 +45,8 @@
   ],
   "main": "./out/extension.js",
   "scripts": {
-    "build": "tsc -p ./ && vsce package --no-dependencies",
-    "publish": "vsce publish --no-dependencies",
+    "build": "tsc -p ./ && vsce package",
+    "publish": "vsce publish",
     "prepare": "husky install"
   },
   "dependencies": {

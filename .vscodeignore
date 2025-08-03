@@ -11,5 +11,4 @@ node_modules/**
 .node-version
 tsconfig.json
 eslint.config.mjs
-pnpm-lock.yaml
-pnpm-workspace.yaml
+package-lock.json
