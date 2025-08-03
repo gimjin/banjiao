@@ -41,18 +41,13 @@ jobs:
           node-version: '20.19.4'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: '10.14.0'
-
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Build package
-        run: pnpm run build
+        run: npm run build
 
       - name: Publish Extension
-        run: npx vsce publish --no-dependencies
+        run: npm run publish
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
