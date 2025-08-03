@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.1](https://github.com/gimjin/banjiao/compare/banjiao-v1.5.0...banjiao-v1.5.1) (2025-08-03)
+
+
+### Bug Fixes
+
+* ci 内 node 和 pnpm 版本与 package.json 不匹配导致无法编译的缺陷 ([eee563c](https://github.com/gimjin/banjiao/commit/eee563ccc6a5f3b950af7329dd9ab40c348926ab))
+
 ## [1.5.0](https://github.com/gimjin/banjiao/compare/banjiao-v1.4.7...banjiao-v1.5.0) (2025-08-03)
 
 
