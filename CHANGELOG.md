@@ -2,6 +2,62 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/gimjin/banjiao/compare/banjiao-v1.4.7...banjiao-v1.5.0) (2025-08-03)
+
+
+### Features
+
+* by default, single-line comments are not converted ([e6f5548](https://github.com/gimjin/banjiao/commit/e6f5548dda851e5e1b8362fa18347e812f10ff4d))
+* 变量名和方法名的中英文对照 ([4984517](https://github.com/gimjin/banjiao/commit/49845173b89066e74239bada0c54ef1d8c6b5d29))
+* 开关设置、快捷键、状态栏按钮 ([5005800](https://github.com/gimjin/banjiao/commit/50058008f41600e2a22471156ae780eb6efaf3a2))
+* 快速转换英文名 和 快速查看中文名 ([42519ba](https://github.com/gimjin/banjiao/commit/42519ba28a13c4ff9e6efe551ca4a7c7250f1684))
+* 粘贴文本时半角自动替换全角 ([9b30794](https://github.com/gimjin/banjiao/commit/9b30794252497804569f38d94af3b000da6b43d0))
+
+
+### Bug Fixes
+
+* [#4](https://github.com/gimjin/banjiao/issues/4) 支持 Jupyter Notebooke .ipynb 文件 ([8a9489f](https://github.com/gimjin/banjiao/commit/8a9489fcc4e92de598140f5898271882dfe0f774))
+* bugs in converting RMB symbol of macOS. ([589ebb6](https://github.com/gimjin/banjiao/commit/589ebb6f2991468b5cb40f67ab196063b10f6412))
+* ci无法执行 job &gt; jobs ([facebca](https://github.com/gimjin/banjiao/commit/facebcab7bd3c0f7fbdf16a74c0a0a5458006848))
+* css class 命名时无 kebab-case 风格 ([e5129ac](https://github.com/gimjin/banjiao/commit/e5129ac5e7ab465b701c3a3dee1b80b7c99cbfe1))
+* ctrl+z 回退操作无限重复无法回退缺陷 ([18ce9fc](https://github.com/gimjin/banjiao/commit/18ce9fc5faed56aa614dabd94e0e07f00feb83b1))
+* hover 弹框中无法预知被替换的变量名缺陷 ([048f3fc](https://github.com/gimjin/banjiao/commit/048f3fc311ea69a6240e008a625ddbbbd8ad0e5b))
+* mac系统自带输入法和搜狗输入法，符号「」『』对应错误导致无法输入{} ([c292c00](https://github.com/gimjin/banjiao/commit/c292c00dad57c23d117330e65f675729edfb6b92))
+* undo 和 redo 时忽略转换 ([98cd115](https://github.com/gimjin/banjiao/commit/98cd115e901708e5e5dcba351fd2077de4d3378d))
+* vscode git 客户端输入 commit-msg 时触发替换操作缺陷 ([806ac99](https://github.com/gimjin/banjiao/commit/806ac9933f54cfe1c56fd67a8f9fb0b9253fff3b))
+* 一段应该缩进的代码行中，强行不缩进把【】粘贴在第一个字符位置时替换错乱 ([f1d3596](https://github.com/gimjin/banjiao/commit/f1d3596d36fe39599b0e92b748967838c7b14b56))
+* 一行文本中已存在一个或多个粘贴文本时只替换第一个文本 ([8a1b13c](https://github.com/gimjin/banjiao/commit/8a1b13cbca8123a3aef85b18f4933c05afee11f2))
+* 初始版本号错误导致 release-please 工作异常 ([76c445c](https://github.com/gimjin/banjiao/commit/76c445c8fbd0a2619b75d5270701c81a01d3ef6f))
+* 单行多字符粘贴时被批量替换缺陷 ([b508653](https://github.com/gimjin/banjiao/commit/b5086538b289dc59c1074261629317dd167d9d98))
+* 单行多符号粘贴时，未覆盖粘贴内容缺陷 ([4767593](https://github.com/gimjin/banjiao/commit/47675939cf50d8c7e5c08647a35156493fc126df))
+* 变量更换风格在 vscode.Hover 占用5行太高导致原功能阅读困难缺陷 ([75b7845](https://github.com/gimjin/banjiao/commit/75b784584e7d18a67d4ff9248016753a3bdabd13))
+* 在中国无法正常访问github上的gif图片缺陷，用 https://sm.ms/ 图床替代 ([b8c82b6](https://github.com/gimjin/banjiao/commit/b8c82b6ed898ca18e855dbb043ad878ea15a524a))
+* 增加全角花括号，优化搜索关键字 ([1baee14](https://github.com/gimjin/banjiao/commit/1baee141e4f98bc9062cb938ac68ba8657255366))
+* 多行文本粘贴时最后一行字符串position错误缺陷。优化代码结构。 ([0b8c449](https://github.com/gimjin/banjiao/commit/0b8c449f72e35e08f61c367c082fa32d6fb53704))
+* 多行文本粘贴时未正确处理，已禁用多行粘贴场景 ([4413fa4](https://github.com/gimjin/banjiao/commit/4413fa4544403d9027b409bdea37d165203ddb85))
+* 快捷转换中英字符，选择文字操作用户体验差 ([e25f80f](https://github.com/gimjin/banjiao/commit/e25f80f5301fc85e842b7294e0b57c998e7df17f))
+* 或符号 || 在 mac ｜｜显示的缺陷 ([4272a76](https://github.com/gimjin/banjiao/commit/4272a76c0a9f1d5f22f3a80d3e57847ae939eea7))
+* 文档未打开时一直显示状态栏按钮缺陷 ([28126d5](https://github.com/gimjin/banjiao/commit/28126d57134f168f8b52288d03d464bf7440ce34))
+* 新增粘贴代码批处理开关，防止误操作 ([2cebf23](https://github.com/gimjin/banjiao/commit/2cebf2330b80f81c5466cf227d7819717f7bd4af))
+* 无法正常显示 gif 例子图片 ([5959d00](https://github.com/gimjin/banjiao/commit/5959d00d995547b7acacd03a50293ec99acc30e8))
+* 无法正常显示 gif 例子图片 ([cb5cbb1](https://github.com/gimjin/banjiao/commit/cb5cbb197fd1bc51bb5ca41fefffd34de58039ec))
+* 无法正确处理当前选择文本的转换 ([f2d68ae](https://github.com/gimjin/banjiao/commit/f2d68aead8dd7f27c5bcbf51161079effdfea909))
+* 显示例子gif图片 ([d0a7ea0](https://github.com/gimjin/banjiao/commit/d0a7ea01710da6cd97e52fb9794bce0eee7da6ec))
+* 添加直角引号『』「」到半角西文引号的映射 ([b4cb7fc](https://github.com/gimjin/banjiao/commit/b4cb7fc202e9f68693d26eee30f2f10c0e1ec8de))
+* 类似compositionstart事件中，单次可输入多个字符时无法转换缺陷 ([889ccd8](https://github.com/gimjin/banjiao/commit/889ccd8a99b1693a928e5382b67defd0f511985b))
+* 粘贴多行文本时异常处理不足导致最后一行覆盖粘贴前文本缺陷 ([8f3b462](https://github.com/gimjin/banjiao/commit/8f3b462f6fc5017463a9817dea42349ed13c9586))
+* 纯符号(如===)翻译导致百度翻译出错缺陷 ([2d80827](https://github.com/gimjin/banjiao/commit/2d808278f0b2a92a15f6ab9adc68bc7459a319fc))
+* 英文变量名无法互相转换4种变量名类型缺陷 ([1215a78](https://github.com/gimjin/banjiao/commit/1215a78481cfabc951cf018eacc0ac649a105a16))
+* 运行包未安装在 dependencies 导致运行时无法找到包报错 ([304e2ab](https://github.com/gimjin/banjiao/commit/304e2ab279558517acd3b4fa560c88656e00fb21))
+* 选择半角风格时无快捷键，导致无法快速通过键盘选择的缺陷 ([fc53ce1](https://github.com/gimjin/banjiao/commit/fc53ce1e5ede1eccbed7fd4ad8a86748970f4624))
+* 选择非常多的文字时浪费翻译字符缺陷，当前64个字符内正常翻译且转换变量名 ([46846cc](https://github.com/gimjin/banjiao/commit/46846cc0868b76f714e816e9023d59e250496e01))
+* 鼠标频繁 hover 误操作变量重命名缺陷 ([973f1a1](https://github.com/gimjin/banjiao/commit/973f1a12d802f9db55c76467206bdea02e54c6cd))
+
+
+### Performance Improvements
+
+* 只有在设置变更时重新设置配置 ([1f0d202](https://github.com/gimjin/banjiao/commit/1f0d20204d6e3729ecbd04562144cba3061bc35c))
+
 ### [1.4.7](https://github.com/gimjin/banjiao/compare/v1.4.6...v1.4.7) (2024-11-19)
 
 
