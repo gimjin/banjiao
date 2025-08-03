@@ -1,9 +1,8 @@
+src/**
+test/**
 .github/**
 .husky/**
 .vscode/**
-src/**
-test/**
-node_modules/**
 .gitignore
 .lintstagedrc.json
 .release-please-manifest.json
@@ -11,4 +10,3 @@ node_modules/**
 .node-version
 tsconfig.json
 eslint.config.mjs
-package-lock.json
