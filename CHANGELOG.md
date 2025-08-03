@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.2](https://github.com/gimjin/banjiao/compare/banjiao-v1.5.1...banjiao-v1.5.2) (2025-08-03)
+
+
+### Bug Fixes
+
+* vsce 不兼容 pnpm 缺陷 ([080a9c3](https://github.com/gimjin/banjiao/commit/080a9c316bb2d9813760b0cb2c728d2808f34918))
+
 ## [1.5.1](https://github.com/gimjin/banjiao/compare/banjiao-v1.5.0...banjiao-v1.5.1) (2025-08-03)
 
 
