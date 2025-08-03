@@ -10,7 +10,7 @@ permissions:
   pull-requests: write
   issues: write
 
-job:
+jobs:
   release-please:
     runs-on: ubuntu-latest
     outputs:
