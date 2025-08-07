@@ -46,6 +46,7 @@
   "main": "./out/extension.js",
   "scripts": {
     "build": "tsc -p ./ && vsce package",
+    "lint": "tsc --noEmit && eslint .",
     "publish": "vsce publish",
     "prepare": "husky install"
   },
