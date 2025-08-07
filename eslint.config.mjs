@@ -10,10 +10,11 @@ export default typescriptEslint.config(
       eslint.configs.recommended,
       ...typescriptEslint.configs.recommended,
     ],
-    files: ['**/*.ts', '**/*.js'],
+    files: ['**/*.ts', '**/*.mjs'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
+      parser: typescriptEslint.parser,
     },
     rules: {},
   },
