@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.4](https://github.com/gimjin/banjiao/compare/banjiao-v1.5.3...banjiao-v1.5.4) (2025-09-27)
+
+
+### Bug Fixes
+
+* [#18](https://github.com/gimjin/banjiao/issues/18) 半角和copilot chat一起使用时，导致编辑器代码被破坏 ([f5eaa4a](https://github.com/gimjin/banjiao/commit/f5eaa4a50657fe02129a0ad71f075bbef076cf96))
+* [#18](https://github.com/gimjin/banjiao/issues/18) 半角和copilot chat一起使用时，导致编辑器代码被破坏 ([ef1edfe](https://github.com/gimjin/banjiao/commit/ef1edfea6806c4dce39c07b18e42ab6efa90fefa))
+
 ## [1.5.3](https://github.com/gimjin/banjiao/compare/banjiao-v1.5.2...banjiao-v1.5.3) (2025-08-03)
 
 
