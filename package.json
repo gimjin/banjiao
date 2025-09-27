@@ -45,6 +45,7 @@
   ],
   "main": "./out/extension.js",
   "scripts": {
+    "watch": "tsc -p ./ --watch",
     "build": "tsc -p ./ && vsce package",
     "lint": "tsc --noEmit && eslint .",
     "publish": "vsce publish",
