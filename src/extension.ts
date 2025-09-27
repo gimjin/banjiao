@@ -409,23 +409,40 @@ export function activate(context: vscode.ExtensionContext): void {
   })
 
   vscode.workspace.onDidChangeTextDocument((event) => {
-    // 先检查插件是否启用
+    // 检查插件是否启用
     if (!switchConfig) {
-      return
-    }
-
-    // [undo 和 redo 时忽略转换](https://code.visualstudio.com/api/references/vscode-api#TextDocumentChangeReason)
-    if (event.reason === 1 || event.reason === 2) {
-      return
-    }
-
-    // commit-msg 输入框输入时忽略
-    if (event.document.uri.scheme === 'vscode-scm') {
       return
     }
 
     // 检查文件类型是否应该被排除
     if (shouldExcludeFile(event.document, excludeExtensionsConfig)) {
+      return
+    }
+
+    // 忽略 [undo 和 redo](https://code.visualstudio.com/api/references/vscode-api#TextDocumentChangeReason)
+    if (event.reason === 1 || event.reason === 2) {
+      return
+    }
+
+    // 忽略 commit-msg 输入框输入
+    if (event.document.uri.scheme.startsWith('vscode-scm')) {
+      return
+    }
+
+    // 忽略 Github Copilot 回答中的代码修改
+    if (event.document.uri.scheme.startsWith('vscode-chat')) {
+      return
+    }
+
+    // 忽略非当前激活编辑器修改的代码
+    if (vscode.window.activeTextEditor) {
+      if (
+        vscode.window.activeTextEditor.document.uri.toString() !==
+        event.document.uri.toString()
+      ) {
+        return
+      }
+    } else {
       return
     }
 
